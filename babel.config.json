@@ -1,0 +1,32 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "usage",
+                "corejs": "3",
+                "targets": {
+                    "chrome": "58",
+                    "ie": "10",
+                    "android": "4.1",
+                },
+            },
+        ],
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        "@babel/transform-runtime",
+        
+        "@babel/plugin-syntax-dynamic-import",
+    ]
+    // "plugins": [
+    //     [
+    //         "import",
+    //         {
+    //             "libraryName": "antd",
+    //             "libraryDirectory": "es",
+    //             "style": "css"
+    //         }
+    //     ]
+    // ]
+}
