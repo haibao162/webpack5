@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const EncodingPlugin = require('webpack-encoding-plugin');
+
 const devServerConfig = {
     static: './dist',
     hot: true,
@@ -116,5 +118,8 @@ module.exports = {
 			filename: "index.html", //输出html文件的位置
         }),
         new MiniCssExtractPlugin(),
+        new EncodingPlugin({
+            encoding: 'UTF-8'
+        })
     ],
 };

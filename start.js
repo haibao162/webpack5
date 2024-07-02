@@ -7,25 +7,25 @@ const { merge } = require('webpack-merge');
 
 const config = {
     entry: [
-        // Ä£¿éÈÈÌæ»»µÄÔËĞĞÊ±´úÂë
+        // æ¨¡å—çƒ­æ›¿æ¢çš„è¿è¡Œæ—¶ä»£ç 
         // 'webpack/hot/dev-server.js',
-        // ÓÃÓÚ web Ì×½Ó×Ö´«Êä¡¢ÈÈÖØÔØÂß¼­µÄ web server ¿Í»§¶Ë
+        // ç”¨äº web å¥—æ¥å­—ä¼ è¾“ã€çƒ­é‡è½½é€»è¾‘çš„ web server å®¢æˆ·ç«¯
         // 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
-        // ÄãµÄÈë¿ÚÆğµã
+        // ä½ çš„å…¥å£èµ·ç‚¹
         './src/index.js',
     ],
     plugins: [
-        // Ä£¿éÈÈÌæ»»µÄ²å¼ş
+        // æ¨¡å—çƒ­æ›¿æ¢çš„æ’ä»¶
         // new webpack.HotModuleReplacementPlugin(),
     ],
     
 };
 const compiler = webpack(merge(devConfig, config));
 
-// ÓÉÓÚÊÖ¶¯Ìí¼ÓÁË `hot` Óë `client` ²ÎÊı£¬Æä½«±»½ûÓÃ
-const server = new webpackDevServer({ hot: true }, compiler);
+// ç”±äºæ‰‹åŠ¨æ·»åŠ äº† `hot` ä¸ `client` å‚æ•°ï¼Œå…¶å°†è¢«ç¦ç”¨
+const server = new webpackDevServer({ hot: true, open: true, port: "5000" }, compiler);
 
 (async () => {
     await server.start();
-    console.log('dev server ÕıÔÚÔËĞĞ');
+    console.log('dev server æ­£åœ¨è¿è¡Œ');
 })();

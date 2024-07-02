@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Test from './test';
 
 // 创建一个简单的 React 组件
 function App() {
-    return <h1>Hello, React 18!</h1>;
+    return <h1>Hello, React 18!
+        <Test/>
+    </h1>;
 }
 
 // 获取 id 为 "example" 的 DOM 容器，并创建一个 React 根节点

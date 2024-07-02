@@ -2,3 +2,6 @@
     color: red;
     background: url('./icon.jpg');
   }
+body {
+  font-size: 12px;
+}
