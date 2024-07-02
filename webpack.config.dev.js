@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const EncodingPlugin = require('webpack-encoding-plugin');
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 const devServerConfig = {
     static: './dist',
@@ -120,6 +121,6 @@ module.exports = {
         new MiniCssExtractPlugin(),
         new EncodingPlugin({
             encoding: 'UTF-8'
-        })
+        }),
     ],
 };

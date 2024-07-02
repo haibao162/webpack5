@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from "antd";
 
 function debounce(fn, delay) {
     let timer = null;
@@ -32,15 +33,44 @@ function debounce_immediate(fn, delay, immediate = false) {
     }
 }
 
-a
+function throttle(fn, delay) {
+    let lastTime = 0;
+    let timer = null;
+    return function(...args) {
+       const nowTime = Date.now();
+       if (nowTime - lastTime >delay) {
+        fn.apply(this, args);
+        lastTime = nowTime;
+       }
+    }
+}
+
+function throttle_D(func, delayTime) {
+    let delay = delayTime || 1000;
+    let timer = null;
+    return function(...args) {
+        if (!timer) {
+            timer = setTimeout(function() {
+                func.apply(this, args);
+                timer = null;
+            }, delay);
+        }
+    }
+}
+
 // 创建一个简单的 React 组件
 export default function Test() {
     return <div>
         <Button onClick={
             debounce_immediate((e) => {
-                console.log(e.target.value);
+                console.log(e);
             }, 1000, true)
-        }>防抖立即执行</Button>
+        }>防抖立即执行(感觉很鸡肋)</Button>
+        <Button onClick={
+            throttle_D(() => {
+                console.log(111);
+            }, 1000)
+        }>节流非立即执行</Button>
         <span style={{ marginLeft: "10px", marginTop: "2px" }}>我是span,marginLeft生效，marginTop不生效。</span>
         <span>span不换行</span>
         图片：
