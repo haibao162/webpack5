@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const EncodingPlugin = require('webpack-encoding-plugin');
 const ESLintPlugin = require("eslint-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 const devServerConfig = {
     static: './dist',
@@ -32,6 +33,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            "@src": path.resolve(__dirname, 'src/'),
+          },
     },
 
     module: {
@@ -53,6 +57,9 @@ module.exports = {
                 test: /\.ts|tsx$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
+                // options: {
+                //     configFile: '../tsconfig.json'
+                //   },
             },
             {
                 test: /\.css$/i,
@@ -109,6 +116,15 @@ module.exports = {
             },
         },
         minimize: true,
+        minimizer: [new TerserPlugin({
+            parallel: true,
+            terserOptions: {
+                compress: {
+                  drop_debugger: false
+                },
+              },
+             
+          })],
     },
     plugins: [
         // 所有的 bundle 都已自动添加到其中。默认生成一个index.html
@@ -122,5 +138,6 @@ module.exports = {
         new EncodingPlugin({
             encoding: 'UTF-8'
         }),
+        
     ],
 };

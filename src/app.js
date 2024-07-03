@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Test from './test';
+import Test from './views/test';
+import Stat from './views/stat';
 
 // 创建一个简单的 React 组件
 function App() {
     return <h1>Hello, React 18!
-        <Test/>
+        <Test />
+        <Stat />
     </h1>;
 }
 

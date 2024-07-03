@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "antd";
 
 function debounce(fn, delay) {
@@ -36,21 +36,21 @@ function debounce_immediate(fn, delay, immediate = false) {
 function throttle(fn, delay) {
     let lastTime = 0;
     let timer = null;
-    return function(...args) {
-       const nowTime = Date.now();
-       if (nowTime - lastTime >delay) {
-        fn.apply(this, args);
-        lastTime = nowTime;
-       }
+    return function (...args) {
+        const nowTime = Date.now();
+        if (nowTime - lastTime > delay) {
+            fn.apply(this, args);
+            lastTime = nowTime;
+        }
     }
 }
 
 function throttle_D(func, delayTime) {
     let delay = delayTime || 1000;
     let timer = null;
-    return function(...args) {
+    return function (...args) {
         if (!timer) {
-            timer = setTimeout(function() {
+            timer = setTimeout(function () {
                 func.apply(this, args);
                 timer = null;
             }, delay);
@@ -58,9 +58,28 @@ function throttle_D(func, delayTime) {
     }
 }
 
+let Com = null;
 // 创建一个简单的 React 组件
 export default function Test() {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        var link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = require('../icon.jpg');
+        document.head.appendChild(link);
+        
+        import(/* webpackPrefetch: true */ './prefetch.js').then(res => {
+            return res.default;
+        }).then(com => {
+            Com = com;
+        });
+
+    }, []);
     return <div>
+        <Button onClick={() => {
+            setVisible(true);
+        }}>显示预加载的内容</Button>
         <Button onClick={
             debounce_immediate((e) => {
                 console.log(e);
@@ -74,7 +93,14 @@ export default function Test() {
         <span style={{ marginLeft: "10px", marginTop: "2px" }}>我是span,marginLeft生效，marginTop不生效。</span>
         <span>span不换行</span>
         图片：
-        <img src={require("./icon.jpg")} style={{ width: "20px", marginTop: "12px" }} />inline-block各个方向的margin和padding都有效
+        {visible && <>
+            <Com />
+        <img src="https://p1.yqbimg.net/h5/home/b8696d7514c2652b145a9e3cb9e850f8.png" />
+            <img src={require("../icon.jpg")} style={{ width: "20px", marginTop: "12px" }} />
+            
+            </>
+        }
+        inline-block各个方向的margin和padding都有效
         垂直居中：line-height。vertical-middle。calc动态计算。flex中的align-items。grid布局。
     </div>;
 }
