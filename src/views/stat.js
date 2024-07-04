@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "antd";
 
+function Child(props) {
 
-// 创建一个简单的 React 组件
+    const getCount = useCallback(() => {
+        console.log("props", props);
+    }, []);
+    return <em>{props.val}<Button onClick={() => {
+        getCount();
+    }}>get props</Button></em>
+}
+
+// 创建丢�个简单的 React 组件
 export default function Stat() {
     const [val, setVal] = useState(0);
     const [a, setA] = useState(1);
@@ -12,36 +21,37 @@ export default function Stat() {
     useEffect(() => {
         // setVal(val + 1);
         // setVal(val + 1);
-        // setVal(val => val + 1); 
-        // console.log('current1', val); 1
-        // setVal(val => val + 1);
-        // console.log('current2', val); 2
-       
-        
+        setVal(val => val + 1); 
+        setVal(val => val + 1);
+
     }, []);
 
     const handleClick = () => {
         Promise.resolve().then(() => {
-            setA(a => a+1);
+            setA(a => a + 1);
             setB("bb");
 
             // setVal2(val2+1);
         });
         setTimeout(() => {
-            setB((x) => x + "ccc");
-            console.log(b);
-        }, 100);
+            setVal(val+1);
+        }, 0);
+        // setTimeout(() => {
+        //     setB((x) => x + "ccc");
+        //     console.log(b);
+        // }, 100);
 
         // setTimeout(() => {
         //     setVal(val + 1);
         // },0);
     };
 
-    console.log(a,b);
+    console.log(val);
 
     return <div>
-            <Button onClick={() => {
-                handleClick();
-            }}>点击</Button>
-        </div>;
+        <Button onClick={() => {
+            handleClick();
+        }}>click</Button>
+        <Child val={val} />
+    </div>;
 }

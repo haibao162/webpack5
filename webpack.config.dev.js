@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const EncodingPlugin = require('webpack-encoding-plugin');
 const ESLintPlugin = require("eslint-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
+const BuildInfo = require('./version.js');
 
 const devServerConfig = {
     static: './dist',
@@ -34,7 +35,7 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            "@src": path.resolve(__dirname, 'src/'),
+            "@src": path.resolve(__dirname, "src"),
           },
     },
 
@@ -133,6 +134,7 @@ module.exports = {
             template: "./src/index.html",
 			inject: "body",
 			filename: "index.html", //输出html文件的位置
+            buildInfo: JSON.stringify(BuildInfo)
         }),
         new MiniCssExtractPlugin(),
         new EncodingPlugin({
