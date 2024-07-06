@@ -35,7 +35,7 @@ export default function Stat() {
         });
         setTimeout(() => {
             setVal(val+1);
-        }, 0);
+        }, 2000);
         // setTimeout(() => {
         //     setB((x) => x + "ccc");
         //     console.log(b);

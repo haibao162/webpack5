@@ -6,6 +6,8 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const BuildInfo = require('./version.js');
 
+console.log(BuildInfo);
+
 const devServerConfig = {
     static: './dist',
     hot: true,
